@@ -12,39 +12,6 @@ preprocessor = joblib.load('xgb_preprocessor.pkl')
 st.title("🚗 Car Price Prediction App")
 
 # -------------------------
-# Manual input for single car
-# -------------------------
-st.header("Predict Price for a Single Car")
-
-categorical_features = ['fueltype', 'aspiration', 'doornumber', 'carbody',
-                        'drivewheel', 'enginelocation', 'enginetype',
-                        'cylindernumber', 'fuelsystem']
-
-numerical_features = ['wheelbase', 'carlength', 'carwidth', 'carheight',
-                      'curbweight', 'enginesize', 'boreratio', 'stroke',
-                      'compressionratio', 'horsepower', 'peakrpm', 'citympg', 'highwaympg']
-
-input_data = {}
-
-st.subheader("Enter Numerical Features")
-for col in numerical_features:
-    input_data[col] = st.number_input(f"{col}", value=0.0)
-
-st.subheader("Select Categorical Features")
-for col in categorical_features:
-    # You can replace options with dataset unique values
-    input_data[col] = st.selectbox(f"{col}", options=['gas','diesel','std','turbo','two','four','sedan','hatchback','wagon','convertible','front','rear','ohc','ohcf','ohcv','rotor','four','six','five','twelve','mpfi','2bbl','1bbl','spdi'])
-
-if st.button("Predict Price"):
-    try:
-        df_input = pd.DataFrame([input_data])
-        X_input = preprocessor.transform(df_input)
-        pred_price = model.predict(X_input)[0]
-        st.success(f"Predicted Car Price: ${pred_price:,.2f}")
-    except Exception as e:
-        st.error(f"Error in prediction: {e}")
-
-# -------------------------
 # Upload CSV for batch prediction
 # -------------------------
 st.header("Upload Test Data CSV for Batch Prediction and Visualization")
@@ -93,3 +60,4 @@ if uploaded_file is not None:
             st.dataframe(top_errors)
         except Exception as e:
             st.error(f"Error in batch prediction: {e}")
+
