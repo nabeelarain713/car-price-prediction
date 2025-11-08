@@ -7,7 +7,7 @@ st.set_page_config(page_title="Car Price Prediction", layout="wide")
 
 # Load model and preprocessor
 model = joblib.load('car_price_xgb_model.pkl')
-preprocessor = joblib.load('preprocessor.pkl')
+preprocessor = joblib.load('xgb_preprocessor.pkl')
 
 st.title("🚗 Car Price Prediction App")
 
@@ -32,7 +32,7 @@ for col in numerical_features:
 
 st.subheader("Select Categorical Features")
 for col in categorical_features:
-    # Provide a simple set of options; can be modified to match dataset exactly
+    # You can replace options with dataset unique values
     input_data[col] = st.selectbox(f"{col}", options=['gas','diesel','std','turbo','two','four','sedan','hatchback','wagon','convertible','front','rear','ohc','ohcf','ohcv','rotor','four','six','five','twelve','mpfi','2bbl','1bbl','spdi'])
 
 if st.button("Predict Price"):
